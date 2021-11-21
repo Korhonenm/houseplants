@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <title>Houseplantlist</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<form th:action="@{/logout}" method= "post">
+		<input type = "submit" value= "Sign Out"/>
+	</form>
+	
+	<h1>Houseplants</h1>
+	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+    <table>
+		<tr>
+			<th>ID</th>
+		    <th>Name</th>
+		    <th>Scientific name</th>
+		    <th>Year</th>
+		    <th>Size</th>
+		    <th>Type</th>
+		    <th sec:authorize="hasAuthority('ADMIN')"></th>
+		</tr> 
+		 
+    	<tr th:each = "houseplant : ${houseplants}">
+    		<td th:text="${houseplant.id}"></td>
+    		<td th:text="${houseplant.name}"></td>
+    		<td th:text="${houseplant.scientificName}"></td>   
+    		<td th:text="${houseplant.year}"></td>
+    		<td th:text="${houseplant.size}"></td>
+    		<td th:text="${houseplant.type.name}"></td>
+    		<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${houseplant.id})}">Edit</a></td> 
+    		<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${houseplant.id})}">Delete</a></td>
+    	</tr>
+     </table> 	
+     		<td sec:authorize="hasAuthority('ADMIN')"><a href="/add">Add Houseplant</a></td>
+</body>
+</html>

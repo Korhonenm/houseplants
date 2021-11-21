@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Houseplantlist</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Edit houseplant</h1>
+	<div>
+		<form th:object="${houseplant}" th:action="@{../save}" action="#" method="post">
+			<input type="hidden" id="id" th:field="*{id}" readonly="readonly" />
+			<label for="name">Name</label> <input type="text" id="name" th:field="*{name}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="scientificName">Scientific Name</label> <input type="text" id="scientificName" th:field="*{scientificName}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="year">Year</label> <input type="text" th:field="*{year}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="size">Size</label> <input type="text" id="size" th:field="*{size}" />
+				
+			<div style="clear: both; display: block; height: 10px;"></div>						
+		  	<label for="types">Type</label>
+			<select id="types" th:field="*{type}" class="form-control">
+       		<option th:each="type: ${types}" th:value="${type.typeid}" th:text="${type.name}"></option>
+    		</select>
+				
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" value="Save"></input>
+		</form>
+	</div>
+</body>
+</html>
