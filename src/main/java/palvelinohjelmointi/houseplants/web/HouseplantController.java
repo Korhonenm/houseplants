@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,17 +32,18 @@ public class HouseplantController {
 	}
 	
 		@PreAuthorize("hasAuthority('ADMIN')")
-		@RequestMapping(value = "/add")
-	    public String addHouseplant(@Valid Houseplant houseplant, BindingResult bindingResult, Model model){
+		@RequestMapping(value = "/add", method = RequestMethod.GET)
+	    public String addHouseplant( Model model){
 	    	model.addAttribute("houseplant", new Houseplant());
 	    	model.addAttribute("types", trepository.findAll());
 	    	return "addhouseplant";
 	    }  
 	    
 	    @RequestMapping(value = "/save", method = RequestMethod.POST)
-	    public String save(@Valid Houseplant houseplant, BindingResult bindingResult, Model model){
+	    public String save(@Valid @ModelAttribute("houseplant") Houseplant houseplant, BindingResult bindingResult, Model model){
+	    	
 	    	if (bindingResult.hasErrors()) {
-				return "redirect:addhouseplant";
+				return "addhouseplant";
 	    	}
 	    	repository.save(houseplant);
 	        return "redirect:houseplantlist";

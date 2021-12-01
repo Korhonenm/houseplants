@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <title>Add</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,13 +15,16 @@
 			<div style="clear: both; display: block; height: 10px;"></div>
 
 			<label for="scientificName">Scientific Name</label> <input type="text" id="scientificName" th:field="*{scientificName}" />
+			<p th:if="${#fields.hasErrors('scientificName')}" th:errors="*{scientificName}">Scientific Name Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			<label for="year">Year</label> <input type="text" th:field="*{year}" />
+			<p th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>
 			
 			
 			<label for="size">Size</label> <input type="text" id="size" th:field="*{size}" />
+			<p th:if="${#fields.hasErrors('size')}" th:errors="*{size}">Size Error</p>
 			<div style="clear: both; display: block; height: 10px;"></div>						
 		  	
 		  	<label for="types">Type</label>
